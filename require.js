@@ -1383,6 +1383,14 @@ var requirejs, require, define;
                         map = makeModuleMap(deps, relMap, false, true);
                         id = map.id;
 
+                        // if not defined yet, see if it is "waiting"
+                        if (!hasProp(defined, id)) {
+                            intakeDefines();
+                            if (hasProp(registry, id)) {
+                                registry[id].enable();
+                            }
+                        }
+
                         if (!hasProp(defined, id)) {
                             return onError(makeError('notloaded', 'Module name "' +
                                         id +
