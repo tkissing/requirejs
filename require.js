@@ -10,6 +10,73 @@
 
 var requirejs, require, define;
 (function (global) {
+
+    /* BEGIN PATCH */
+    function inject(factory, name) {
+        // __get__ and __set__ copied from npm module rewire
+        function __get__() {
+            arguments.varName = arguments[0];
+            if (arguments.varName && typeof arguments.varName === "string") {
+                return eval(arguments.varName);
+            } else {
+                throw new TypeError("__get__ expects a non-empty string");
+            }
+        }
+
+        function __set__() {
+            arguments.varName = arguments[0];
+            arguments.varValue = arguments[1];
+            arguments.src = "";
+
+            if (typeof arguments[0] === "object" && arguments.length === 1) {
+                arguments.env = arguments.varName;
+                if (!arguments.env || Array.isArray(arguments.env)) {
+                    throw new TypeError("__set__ expects an object as env");
+                }
+                for (arguments.varName in arguments.env) {
+                    if (arguments.env.hasOwnProperty(arguments.varName)) {
+                        arguments.varValue = arguments.env[arguments.varName];
+                        arguments.src += arguments.varName + " = arguments.env." + arguments.varName + "; ";
+                    }
+                }
+            } else if (typeof arguments.varName === "string" && arguments.length === 2) {
+                if (!arguments.varName) {
+                    throw new TypeError("__set__ expects a non-empty string as a variable name");
+                }
+                arguments.src = arguments.varName + " = arguments.varValue;";
+            } else {
+                throw new TypeError("__set__ expects an environment object or a non-empty string as a variable name");
+            }
+
+            eval(arguments.src);
+        }
+
+        function getInjectionIndex(module) {
+            return module.lastIndexOf('}') - 1; // FIXME
+        }
+
+        var module = factory.toString();
+        var uses_module_exports = /module.exports\s+=/.test(module);
+        var uses_exports = /exports\.[a-zA-Z0-9_\$]\s+=/.test(module);
+
+        if (uses_module_exports || uses_exports) {
+            // inject get and set
+
+            var parts = [
+                'return',
+                module.substring(0, getInjectionIndex(module)),
+                    (uses_module_exports ? ';module.' : '') + 'exports.__get__ = ' + __get__.toString(),
+                    (uses_module_exports ? ';module.' : '') + 'exports.__set__ = ' + __set__.toString(),
+                module.substring(getInjectionIndex(module))
+            ];
+
+            factory = (new Function(parts.join(' '))());
+        }
+
+        return factory;
+    }
+    /* END PATCH */
+
     var req, s, head, baseElement, dataMain, src,
         interactiveScript, currentlyAddingScript, mainScript, subPath,
         version = '2.1.14',
@@ -1663,7 +1730,9 @@ var requirejs, require, define;
              * @private
              */
             execCb: function (name, callback, args, exports) {
-                return callback.apply(exports, args);
+                /* BEGIN PATCH */
+                return inject(callback, name).apply(exports, args);
+                /* END PATCH */
             },
 
             /**
