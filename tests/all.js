@@ -19,12 +19,17 @@ doh.registerUrl("skipDataMain", "../dataMain/skipDataMain/skipDataMain.html");
 doh.registerUrl("dataMainIndex", "../dataMain/dataMainIndex/dataMainIndex.html");
 doh.registerUrl("dataMainBaseUrl", "../dataMain/baseUrl/dataMainBaseUrl.html");
 
+doh.registerUrl("moduleExports", "../moduleExports/moduleExports.html");
+
 if (hasToString) {
     doh.registerUrl("anonSimple", "../anon/anonSimple.html");
     doh.registerUrl("cjsSpace", "../cjsSpace/cjsSpace.html");
     doh.registerUrl("cjsDotRequire", "../cjsSpace/cjsDotRequire.html");
     doh.registerUrl("packages", "../packages/packages.html");
     doh.registerUrl("packagesConfig", "../packages/config/config.html");
+    doh.registerUrl("packagesNestedMain", "../packagesNestedMain/packagesNestedMain.html");
+    doh.registerUrl("packagesNode", "../packagesNode/packagesNode.html");
+    doh.registerUrl("packagesNodeAdapter", "../packagesNodeAdapter/packagesNodeAdapter.html");
     doh.registerUrl("specialDeps", "../specialDeps/specialDeps.html");
 }
 
@@ -51,6 +56,7 @@ doh.registerUrl("depEmpty", "../depEmpty.html");
 doh.registerUrl("depoverlap", "../depoverlap.html");
 doh.registerUrl("urlfetch", "../urlfetch/urlfetch.html");
 doh.registerUrl("uniques", "../uniques/uniques.html");
+doh.registerUrl("dotTrim", "../dotTrim/dotTrim.html");
 doh.registerUrl("multiversion", "../multiversion.html", 10000);
 
 doh.registerUrl("isBrowser", "../isBrowser/isBrowser.html");
@@ -98,6 +104,8 @@ doh.registerUrl("mapConfigPluginBuilt", "../mapConfig/built/mapConfigPluginBuilt
 
 doh.registerUrl("layers", "../layers/layers.html", 10000);
 
+doh.registerUrl("bundles", "../bundles/bundles.html");
+
 doh.registerUrl("afterload", "../afterload.html", 10000);
 
 doh.registerUrl("universal", "../universal/universal.html");
@@ -110,6 +118,9 @@ doh.registerUrl("nestedDefine", "../nestedDefine/nestedDefine.html");
 doh.registerUrl("nestedDefine2", "../nestedDefine/nestedDefine2.html");
 doh.registerUrl("nestedRelativeRequire", "../nestedRelativeRequire/nestedRelativeRequire.html");
 doh.registerUrl("nestedRequireConfig", "../nestedRequireConfig/nestedRequireConfig.html");
+
+doh.registerUrl("pluginBundles", "../plugins/pluginBundles/pluginBundles.html");
+doh.registerUrl("pluginBundlesSeparateText", "../plugins/pluginBundlesSeparateText/pluginBundlesSeparateText.html");
 
 doh.registerUrl("pluginsSync", "../plugins/sync.html");
 doh.registerUrl("pluginsOnError", "../plugins/onerror/onerror.html");
@@ -126,6 +137,8 @@ doh.registerUrl("pluginShim", "../plugins/pluginShim/pluginShim.html");
 doh.registerUrl("pluginMap", "../plugins/pluginMap/pluginMap.html");
 doh.registerUrl("pluginMapSameName", "../plugins/pluginMapSameName/pluginMapSameName.html");
 doh.registerUrl("pluginMapDynamic", "../plugins/pluginMap/dynamic/pluginMapDynamic.html");
+doh.registerUrl("pluginComplexNormalize", "../plugins/complexNormalize/complexNormalize.html");
+doh.registerUrl("pluginNormalize", "../plugins/pluginNormalize/pluginNormalize.html");
 
 doh.registerUrl("requirePluginLoad", "../requirePluginLoad/requirePluginLoad.html");
 
@@ -169,6 +182,7 @@ if (typeof Worker !== "undefined") {
 
 doh.registerUrl("undef", "../undef/undef.html", 8000);
 doh.registerUrl("undefNoRequire", "../undef/undefNoRequire.html", 3000);
+doh.registerUrl("undefNoRequire2", "../undef/undefNoRequire2.html", 3000);
 doh.registerUrl("undefEnforceShim", "../undef/undefEnforceShim.html", 8000);
 doh.registerUrl("undefLocal", "../undef/undefLocal.html", 8000);
 doh.registerUrl("errorContinue", "../error/errorContinue.html", 8000);
@@ -181,4 +195,5 @@ doh.registerUrl("pluginErrorContinueLocal", "../error/pluginErrorContinueLocal.h
 doh.registerUrl("defineErrorLocal", "../error/defineErrorLocal.html");
 
 doh.registerUrl("pathArray", "../pathArray/pathArray.html", 8000);
+doh.registerUrl("pathArrayWithMap", "../pathArray/withMap/withMap.html", 8000);
 doh.registerUrl("pathArrayFail", "../pathArray/pathArrayFail.html", 10000);
